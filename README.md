@@ -7,4 +7,4 @@ This is a simple JavaScript-based audio recorder for the **PureVibe** affirmatio
 - Your recording will be played back immediately.  
 
 ## Deployment  
-- Hosted on GitHub Pages: [Your Live Link Here](https://yourusername.github.io/purevibe-recorder)  
+- Hosted on GitHub Pages: [Your Live Link Here](https://shesladyk.github.io/purevibe-recorder)  
