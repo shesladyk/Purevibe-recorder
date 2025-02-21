@@ -4,21 +4,32 @@
     <title>PureVibe Audio Recorder</title>
 </head>
 <body>
+    <h2>PureVibe Affirmation Recorder</h2>
+    
+    <!-- Buttons to Start & Stop Recording -->
     <button onclick="startRecording()">Start Recording</button>
     <button onclick="stopRecording()">Stop & Save</button>
+    
+    <!-- Audio Player to Playback Recording -->
     <audio id="audioPlayback" controls></audio>
+
+    <!-- New Download Button -->
+    <button onclick="downloadRecording()">Download Recording</button>
 
     <script>
         let mediaRecorder;
         let audioChunks = [];
 
+        // Function to Start Recording
         async function startRecording() {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder = new MediaRecorder(stream);
+            audioChunks = []; // Reset chunks
             mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
             mediaRecorder.start();
         }
 
+        // Function to Stop Recording & Playback
         function stopRecording() {
             mediaRecorder.stop();
             mediaRecorder.onstop = () => {
@@ -26,6 +37,17 @@
                 const audioUrl = URL.createObjectURL(audioBlob);
                 document.getElementById("audioPlayback").src = audioUrl;
             };
+        }
+
+        // Function to Download Recording as MP3
+        function downloadRecording() {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+            const downloadLink = document.createElement("a");
+            downloadLink.href = URL.createObjectURL(audioBlob);
+            downloadLink.download = "PureVibe_Recording.mp3";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
     </script>
 </body>
